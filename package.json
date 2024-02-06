@@ -4,7 +4,9 @@
   "description": "API Server for My Only Pans",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "dev": "ts-node-dev --respawn --transpile-only src/index.ts"
   },
   "repository": {
     "type": "git",
@@ -15,5 +17,12 @@
   "bugs": {
     "url": "https://github.com/my-only-pans/mop-server/issues"
   },
-  "homepage": "https://github.com/my-only-pans/mop-server#readme"
+  "homepage": "https://github.com/my-only-pans/mop-server#readme",
+  "devDependencies": {
+    "@types/express": "^4.17.21",
+    "typescript": "^5.3.3"
+  },
+  "dependencies": {
+    "express": "^4.18.2"
+  }
 }
