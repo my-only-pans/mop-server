@@ -1,13 +1,16 @@
 import express from 'express';
 import type { Application, Request, Response } from 'express';
+import initializeApp from './loaders/initializeApp';
+import config from './config';
 
 const app: Application = express();
-const port = 3000; // You can choose any port
+
+void initializeApp();
 
 app.get('/', (req: Request, res: Response) => {
-  res.send('Hello World from Express and TypeScript! UPDATED!');
+  res.send('Hello! This is the API for MyOnlyPans!');
 });
 
-app.listen(port, () => {
-  console.log(`Server is running on http://localhost:${port}`);
+app.listen(config.PORT, () => {
+  console.log(`Server is running on http://localhost:${config.PORT}`);
 });

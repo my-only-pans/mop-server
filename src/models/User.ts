@@ -1,0 +1,30 @@
+import { ModelOptions, getModelForClass, prop } from '@typegoose/typegoose';
+
+@ModelOptions({ schemaOptions: { collection: 'User' } })
+export class User {
+  @prop({ required: true, unique: true })
+    username!: string;
+
+  @prop({ required: true, unique: true })
+    email!: string;
+
+  @prop({ required: true })
+    firstName!: string;
+
+  @prop({ required: true })
+    lastName!: string;
+
+  @prop({ required: true })
+    password!: string;
+
+  @prop({ type: () => [String] })
+    equipment?: string[];
+
+  @prop({ type: () => [String] })
+    allergens?: string[];
+
+  @prop({ type: () => [String] })
+    availableIngredients?: string[];
+}
+
+export const MUser = getModelForClass(User);

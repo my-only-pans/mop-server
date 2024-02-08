@@ -1,6 +1,6 @@
 {
   "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": true
+    "source.fixAll.eslint": "explicit"
   },
   "eslint.validate": [
     "javascript",
@@ -8,5 +8,9 @@
     "typescript",
     "typescriptreact"
   ],
-  "eslint.workingDirectories": ["./frontend", "./backend"]
+  "eslint.workingDirectories": [
+    "./frontend",
+    "./backend"
+  ],
+  "files.eol": "\n"
 }
