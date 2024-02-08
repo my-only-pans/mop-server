@@ -1,39 +1,21 @@
-import { MUser } from '../../models/User';
-import hashPassword from '../../utils/user/hashPassword';
+import { type Request, type Response } from "express";
+import createUser from "./utils/createUser";
+import getErrorMessage from "../../utils/getErrorMessage";
+import createJwt from "./utils/createJwt";
 
-interface RegisterUserInputType {
-  email: string
-  password: string
-  confirmPassword: string
-  username: string
-  firstName: string
-  lastName: string
-}
+export default async function registerUser(
+  req: Request,
+  res: Response
+): Promise<void> {
+  try {
+    const { body: input } = req;
 
-export default async function registerUser (input: RegisterUserInputType): Promise<string> {
-  const { email, password, confirmPassword, username, firstName, lastName } = input;
+    const userId = await createUser(input);
 
-  const emailUsed = !!(await MUser.countDocuments({ email }));
+    const authToken = await createJwt(userId);
 
-  if (emailUsed) {
-    throw new Error('Email already used');
+    res.status(201).json({ authToken });
+  } catch (error) {
+    res.status(500).json(getErrorMessage(error));
   }
-
-  if (password !== confirmPassword) {
-    throw new Error('Password must match');
-  }
-
-  const hashedPassword = await hashPassword(password);
-
-  const newUser = new MUser({
-    firstName,
-    lastName,
-    username,
-    email,
-    password: hashedPassword
-  });
-
-  await newUser.save();
-
-  return newUser._id.toString();
 }

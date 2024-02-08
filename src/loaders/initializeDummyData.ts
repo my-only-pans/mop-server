@@ -1,4 +1,4 @@
-import registerUser from '../api/user/registerUser';
+import createUser from '../api/user/utils/createUser';
 import config from '../config';
 import { MUser } from '../models/User';
 
@@ -7,7 +7,7 @@ export default async function initializeDummyData (): Promise<void> {
 
   if (adminExists) return;
 
-  await registerUser({
+  await createUser({
     firstName: 'Admin',
     lastName: 'Admin',
     username: 'mop-admin',
