@@ -1,7 +1,7 @@
-import { type Request, type Response } from "express";
-import createUser from "../../utils/user/createUser";
-import getErrorMessage from "../../utils/getErrorMessage";
-import createJwt from "../../utils/user/createJwt";
+import { type Request, type Response } from 'express';
+import createUser from '../../utils/user/createUser';
+import getErrorMessage from '../../utils/getErrorMessage';
+import createJwt from '../../utils/user/createJwt';
 
 export default async function registerUser(
   req: Request,
@@ -9,6 +9,8 @@ export default async function registerUser(
 ): Promise<void> {
   try {
     const { body: input } = req;
+
+    const { email, password } = req.body;
 
     const userId = await createUser(input);
 

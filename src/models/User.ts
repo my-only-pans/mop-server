@@ -1,9 +1,12 @@
-import { ModelOptions, getModelForClass, prop } from "@typegoose/typegoose";
-import { ObjectId } from "mongoose";
-import Base from "./Base";
+import { ModelOptions, getModelForClass, prop } from '@typegoose/typegoose';
+import { ObjectId } from 'mongoose';
+import Base from './Base';
 
-@ModelOptions({ schemaOptions: { collection: "User" } })
+@ModelOptions({ schemaOptions: { collection: 'User' } })
 export class User extends Base {
+  @prop({ required: true, unique: true })
+  uid!: string;
+
   @prop({ required: true, unique: true })
   username!: string;
 
@@ -15,9 +18,6 @@ export class User extends Base {
 
   @prop({ required: true })
   lastName!: string;
-
-  @prop({ required: true })
-  password!: string;
 
   @prop({ type: () => [String] })
   equipment?: string[];
