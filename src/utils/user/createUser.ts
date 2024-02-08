@@ -1,5 +1,5 @@
-import { MUser } from "../../../models/User";
-import hashPassword from "../../../utils/user/hashPassword";
+import { MUser } from "../../models/User";
+import hashPassword from "./hashPassword";
 
 interface CreateUserInputType {
   email: string;

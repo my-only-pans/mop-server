@@ -1,7 +1,7 @@
 import config from "../../config";
 import { MUser } from "../../models/User";
 import jwt from "jsonwebtoken";
-import createJwt from "./utils/createJwt";
+import createJwt from "../../utils/user/createJwt";
 import { Request, Response } from "express";
 
 interface LoginInputType {

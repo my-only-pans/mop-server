@@ -1,7 +1,7 @@
 import { type Request, type Response } from "express";
-import createUser from "./utils/createUser";
+import createUser from "../../utils/user/createUser";
 import getErrorMessage from "../../utils/getErrorMessage";
-import createJwt from "./utils/createJwt";
+import createJwt from "../../utils/user/createJwt";
 
 export default async function registerUser(
   req: Request,
