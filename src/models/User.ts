@@ -1,30 +1,32 @@
-import { ModelOptions, getModelForClass, prop } from '@typegoose/typegoose';
+import { ModelOptions, getModelForClass, prop } from "@typegoose/typegoose";
+import { ObjectId } from "mongoose";
+import Base from "./Base";
 
-@ModelOptions({ schemaOptions: { collection: 'User' } })
-export class User {
+@ModelOptions({ schemaOptions: { collection: "User" } })
+export class User extends Base {
   @prop({ required: true, unique: true })
-    username!: string;
+  username!: string;
 
   @prop({ required: true, unique: true })
-    email!: string;
+  email!: string;
 
   @prop({ required: true })
-    firstName!: string;
+  firstName!: string;
 
   @prop({ required: true })
-    lastName!: string;
+  lastName!: string;
 
   @prop({ required: true })
-    password!: string;
+  password!: string;
 
   @prop({ type: () => [String] })
-    equipment?: string[];
+  equipment?: string[];
 
   @prop({ type: () => [String] })
-    allergens?: string[];
+  allergens?: string[];
 
   @prop({ type: () => [String] })
-    availableIngredients?: string[];
+  availableIngredients?: string[];
 }
 
 export const MUser = getModelForClass(User);

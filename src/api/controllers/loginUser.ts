@@ -1,30 +1,33 @@
 import config from "../../config";
-import { MUser } from "../../models/User";
+import { MUser, User } from "../../models/User";
 import jwt from "jsonwebtoken";
 import createJwt from "../../utils/user/createJwt";
 import { Request, Response } from "express";
+import isEmail from "../../utils/user/isEmail";
 
 interface LoginInputType {
-  username?: string;
-  email?: string;
+  login: string;
   password: string;
 }
 
 export default async function (req: Request, res: Response) {
   try {
     const input = req.body as LoginInputType;
-    const { username, email, password } = input;
+    const { login, password } = input;
 
-    if (!username && !email) {
+    if (!login) {
       return res.status(401).json("Username or Email is required");
     } else if (!password) {
       return res.status(401).json("Password is required");
     }
 
-    const user = await MUser.findOne(
-      { $or: [{ username }, { email }] },
-      { _id: 1 }
-    ).lean();
+    let user: User | null;
+
+    if (isEmail(login)) {
+      user = await MUser.findOne({ email: login }).lean();
+    } else {
+      user = await MUser.findOne({ username: login }).lean();
+    }
 
     if (!user) {
       return res.status(401).json("Invalid user credentials");
