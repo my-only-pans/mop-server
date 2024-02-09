@@ -56,8 +56,6 @@ export default async function createUser(
     password: password,
   });
 
-  console.log(userRecord);
-
   const newUser = new MUser({
     uid: userRecord.uid,
     firstName,
