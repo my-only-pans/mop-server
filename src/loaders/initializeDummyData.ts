@@ -4,7 +4,7 @@ import { MUser } from '../models/User';
 
 export default async function initializeDummyData(): Promise<void> {
   const adminExists = await MUser.countDocuments({
-    email: 'admin@email.com',
+    email: config.DEFAULT_ADMIN_EMAIL,
   }).lean();
 
   if (adminExists) return;
@@ -12,7 +12,7 @@ export default async function initializeDummyData(): Promise<void> {
   await createUser({
     firstName: 'Admin',
     lastName: 'Admin',
-    username: 'mop-admin',
+    username: config.DEFAULT_ADMIN_USERNAME,
     email: config.DEFAULT_ADMIN_EMAIL,
     password: config.DEFAULT_ADMIN_PASSWORD,
     confirmPassword: config.DEFAULT_ADMIN_PASSWORD,
