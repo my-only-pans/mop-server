@@ -11,5 +11,3 @@ API Server for My Only Pans
 
 - To run the app in development mode, execute `npm run start:dev`
 - To check for lint errors, execute `npm run lint`
-
-test dev
