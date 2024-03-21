@@ -1,36 +1,24 @@
-import config from "../../config";
-import { MUser, User } from "../../models/User";
-import jwt from "jsonwebtoken";
-import createJwt from "../../utils/user/createJwt";
-import { Request, Response } from "express";
-import isEmail from "../../utils/user/isEmail";
+import config from '../../config';
+import { MUser } from '../../models/User';
+import createJwt from '../../utils/user/createJwt';
+import { Request, Response } from 'express';
+import firebaseAdmin from '../../utils/firebaseAdmin';
 
 interface LoginInputType {
-  login: string;
-  password: string;
+  firebaseToken: string;
 }
 
 export default async function (req: Request, res: Response) {
   try {
     const input = req.body as LoginInputType;
-    const { login, password } = input;
+    const { firebaseToken } = input;
 
-    if (!login) {
-      return res.status(401).json("Username or Email is required");
-    } else if (!password) {
-      return res.status(401).json("Password is required");
-    }
+    const { uid } = await firebaseAdmin.auth().verifyIdToken(firebaseToken);
 
-    let user: User | null;
-
-    if (isEmail(login)) {
-      user = await MUser.findOne({ email: login }).lean();
-    } else {
-      user = await MUser.findOne({ username: login }).lean();
-    }
+    const user = await MUser.findOne({ uid }).lean();
 
     if (!user) {
-      return res.status(401).json("Invalid user credentials");
+      return res.status(401).json('Invalid user credentials');
     }
 
     const authToken = await createJwt(user._id.toString());
@@ -38,6 +26,6 @@ export default async function (req: Request, res: Response) {
     res.send({ authToken });
   } catch (error) {
     console.log(error);
-    res.status(500).json("Something went wrong");
+    res.status(500).json('Something went wrong');
   }
 }
