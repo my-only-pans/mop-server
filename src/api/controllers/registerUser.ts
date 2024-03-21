@@ -1,23 +1,71 @@
 import { type Request, type Response } from 'express';
-import createUser from '../../utils/user/createUser';
 import getErrorMessage from '../../utils/getErrorMessage';
 import createJwt from '../../utils/user/createJwt';
+import { MUser } from '../../models/User';
+import firebaseAdmin from '../../utils/firebaseAdmin';
 
-export default async function registerUser(
-  req: Request,
-  res: Response
-): Promise<void> {
+export default async function registerUser(req: Request, res: Response) {
   try {
     const { body: input } = req;
 
-    const { email, password } = req.body;
+    if (!input) {
+      return res.status(400).send('Input is required');
+    }
 
-    const userId = await createUser(input);
+    const { email, password, confirmPassword, username, firstName, lastName } =
+      input;
+
+    if (!email) {
+      return res.status(400).send('Email is required');
+    } else if (!password) {
+      return res.status(400).send('Password is required');
+    } else if (!confirmPassword) {
+      return res.status(400).send('Please confirm password');
+    } else if (!username) {
+      return res.status(400).send('Username is required');
+    } else if (!firstName) {
+      return res.status(400).send('First Name is required');
+    } else if (!lastName) {
+      return res.status(400).send('Last Name is required');
+    }
+
+    const emailUsed = !!(await MUser.countDocuments({ email }));
+
+    if (emailUsed) {
+      return res.status(400).send('Email already used');
+    }
+
+    const usernameUsed = !!(await MUser.countDocuments({ username }));
+
+    if (usernameUsed) {
+      return res.status(400).send('Username is already taken');
+    }
+
+    if (password !== confirmPassword) {
+      return res.status(400).send('Password must match');
+    }
+
+    const userRecord = await firebaseAdmin.auth().createUser({
+      email: email,
+      password: password,
+    });
+
+    const newUser = new MUser({
+      uid: userRecord.uid,
+      firstName,
+      lastName,
+      username,
+      email,
+    });
+
+    await newUser.save();
+
+    const userId = newUser._id.toString();
 
     const authToken = await createJwt(userId);
 
-    res.status(201).json({ authToken });
+    return res.status(201).json({ authToken });
   } catch (error) {
-    res.status(500).json(getErrorMessage(error));
+    return res.status(500).send(getErrorMessage(error));
   }
 }
