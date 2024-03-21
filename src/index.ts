@@ -7,23 +7,34 @@ import swaggerJsdoc from 'swagger-jsdoc';
 import swaggerUi from 'swagger-ui-express';
 import testRouter from './api/routers/testRouter';
 import cors from 'cors';
+import cookieParser from 'cookie-parser';
 
 const router = express.Router();
 
 const options = {
   definition: {
-    openapi: '3.0.0', // Specification (optional, defaults to swagger: '2.0')
+    openapi: '3.0.0',
     info: {
-      title: 'Hello World', // Title (required)
-      version: '1.0.0', // Version (required)
+      title: 'Hello World',
+      version: '1.0.0',
+    },
+    securityDefinitions: {
+      BearerAuth: {
+        type: 'apiKey',
+        name: 'Authorization',
+        in: 'header',
+      },
     },
   },
-  // Path to the API docs
-  apis: ['src/api/routers/*.ts'], // Path to the files where you have annotated your endpoints.
+  apis: ['src/api/routers/*.ts'],
 };
 
 const swaggerSpec = swaggerJsdoc(options);
-router.use('/api-docs', swaggerUi.serve);
+router.use(
+  '/api-docs',
+  swaggerUi.serve,
+  swaggerUi.setup(swaggerSpec, { explorer: true })
+);
 router.get('/api-docs', swaggerUi.setup(swaggerSpec));
 
 const app: Application = express();
@@ -32,6 +43,7 @@ const app: Application = express();
 app.use(cors());
 
 app.use(express.json()); // For parsing application/x-www-form-urlencoded
+app.use(cookieParser());
 
 app.use(router);
 
