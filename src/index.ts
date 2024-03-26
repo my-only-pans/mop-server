@@ -8,6 +8,7 @@ import swaggerUi from 'swagger-ui-express';
 import testRouter from './api/routers/testRouter';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
+import recipeRouter from './api/routers/recipeRouter';
 
 const router = express.Router();
 
@@ -54,6 +55,7 @@ app.get('/', (req: Request, res: Response) => {
 });
 
 app.use('/user', userRouter);
+app.use('/recipe', recipeRouter);
 app.use('/test', testRouter);
 
 app.listen(config.PORT, () => {

@@ -2,6 +2,7 @@ import express from 'express';
 import registerUser from '../controllers/registerUser';
 import loginUser from '../controllers/loginUser';
 import getMyProfile from '../controllers/getMyProfile';
+import authMiddleWare from '../../utils/authMiddleware';
 
 const userRouter = express.Router();
 
@@ -126,6 +127,6 @@ userRouter.post('/login', loginUser);
  *       400:
  *         description: Bad request
  */
-userRouter.get('/myProfile', getMyProfile);
+userRouter.get('/myProfile', authMiddleWare, getMyProfile);
 
 export default userRouter;

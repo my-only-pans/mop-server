@@ -2,19 +2,13 @@ import { Request, Response } from 'express';
 import jwt, { JwtPayload } from 'jsonwebtoken';
 import config from '../../config';
 import { MUser, User } from '../../models/User';
+import { AuthenticatedRequest } from '../../utils/authMiddleware';
 
-export default async function getMyProfile(req: Request, res: Response) {
-  const authToken = req.headers.authorization;
-
-  if (!authToken) {
-    return res.status(401).json({ message: 'Authorization header missing' });
-  }
-
-  const [_, token] = authToken.split(' ');
-
-  const { userId } = jwt.verify(token, config.JWT_SECRET) as JwtPayload;
-
-  const user: User | null = await MUser.findById(userId).lean();
+export default async function getMyProfile(
+  req: AuthenticatedRequest,
+  res: Response
+) {
+  const user: User | null = await MUser.findById(req.userId).lean();
 
   if (!user) {
     return res.status(500).json('User not registered');
