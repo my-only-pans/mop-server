@@ -2,7 +2,7 @@ import { Request, Response } from 'express';
 import jwt, { JwtPayload } from 'jsonwebtoken';
 import config from '../../config';
 import { MUser, User } from '../../models/User';
-import { AuthenticatedRequest } from '../../utils/authMiddleware';
+import { AuthenticatedRequest } from '../../types/CoreTypes';
 
 export default async function getMyProfile(
   req: AuthenticatedRequest,

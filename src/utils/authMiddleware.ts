@@ -1,10 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
 import jwt, { JwtPayload } from 'jsonwebtoken';
 import config from '../config';
-
-export interface AuthenticatedRequest extends Request {
-  userId?: string;
-}
+import { AuthenticatedRequest } from '../types/CoreTypes';
 
 export default function authMiddleWare(
   req: AuthenticatedRequest,

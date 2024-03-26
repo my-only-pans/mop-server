@@ -6,10 +6,27 @@ import {
 } from '@typegoose/typegoose';
 import Base from './Base';
 import { User } from './User';
-import { RecipeIngredient } from './Ingredient';
-import Equipment from './Equipment';
-import Category from './Category';
 
+export class RecipeIngredient {
+  @prop({ required: true })
+  _id!: string;
+
+  @prop({ required: true })
+  amount!: number;
+
+  @prop({ required: true })
+  unit!: string;
+}
+
+export class RecipeEquipment {
+  @prop({ required: true })
+  _id!: string;
+}
+
+export class RecipeCategory {
+  @prop({ required: true })
+  _id!: string;
+}
 @ModelOptions({ schemaOptions: { collection: 'Recipe' } })
 export class Recipe extends Base {
   @prop({ required: true, ref: () => User })
@@ -33,11 +50,11 @@ export class Recipe extends Base {
   @prop({ required: true, type: () => [RecipeIngredient] })
   ingredients!: RecipeIngredient[];
 
-  @prop({ required: true, type: () => [Equipment] })
-  equipment!: Equipment[];
+  @prop({ required: true, type: () => [RecipeEquipment] })
+  equipment!: RecipeEquipment[];
 
-  @prop({ type: () => [Category] })
-  categories?: Category[];
+  @prop({ type: () => [RecipeCategory] })
+  categories?: RecipeCategory[];
 
   @prop({ required: true })
   instructions!: string;

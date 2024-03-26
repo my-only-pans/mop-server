@@ -6,9 +6,7 @@ import {
 } from '@typegoose/typegoose';
 import Base from './Base';
 import { User } from './User';
-import { RecipeIngredient } from './Ingredient';
-import Equipment from './Equipment';
-import Category from './Category';
+import { RecipeCategory, RecipeEquipment, RecipeIngredient } from './Recipe';
 
 @ModelOptions({ schemaOptions: { collection: 'RecipeDraft' } })
 export class RecipeDraft extends Base {
@@ -33,11 +31,11 @@ export class RecipeDraft extends Base {
   @prop({ type: () => [RecipeIngredient] })
   ingredients?: RecipeIngredient[];
 
-  @prop({ type: () => [Equipment] })
-  equipment?: Equipment[];
+  @prop({ type: () => [RecipeEquipment] })
+  equipment?: RecipeEquipment[];
 
-  @prop({ type: () => [Category] })
-  categories?: Category[];
+  @prop({ type: () => [RecipeCategory] })
+  categories?: RecipeCategory[];
 
   @prop()
   instructions?: string;

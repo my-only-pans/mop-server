@@ -24,10 +24,6 @@ const recipeRouter = express.Router();
  *               - prepTime
  *               - cookTime
  *               - serving
- *               - ingredients
- *               - equipment
- *               - categories
- *               - instructions
  *             properties:
  *               title:
  *                 type: string
@@ -44,28 +40,6 @@ const recipeRouter = express.Router();
  *               serving:
  *                 type: number
  *                 example: 2
- *               ingredients:
- *                 type: array
- *                 items:
- *                   type: object
- *                   properties:
- *                     _id:
- *                       type: string
- *                       example: chicken
- *                     amount:
- *                       type: number
- *                       example: 1
- *                     unit:
- *                       type: string
- *                       example: pc
- *               equipment:
- *                 type: array
- *                 items:
- *                   type: object
- *                   properties:
- *                     _id:
- *                       type: string
- *                       example: chicken
  *               categories:
  *                 type: array
  *                 items:
@@ -74,10 +48,6 @@ const recipeRouter = express.Router();
  *                     _id:
  *                       type: string
  *                       example: chicken
- *               instructions:
- *                 description: HTML String of the instructions
- *                 type: string
- *                 example: <p>Fry the chicken in a frying pan</p>
  *     security:
  *       - BearerAuth: []
  *     responses:
