@@ -15,10 +15,10 @@ export class Recipe extends Base {
   @prop({ required: true, ref: () => User })
   owner!: Ref<User>;
 
-  @prop({ required: true, unique: true })
+  @prop({ required: true })
   title!: string;
 
-  @prop({ required: true, unique: true })
+  @prop({ required: true })
   description!: string;
 
   @prop({ required: true })

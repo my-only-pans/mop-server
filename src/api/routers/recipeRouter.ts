@@ -52,7 +52,7 @@ const recipeRouter = express.Router();
  *                     _id:
  *                       type: string
  *                       example: chicken
- *                     ammount:
+ *                     amount:
  *                       type: number
  *                       example: 1
  *                     unit:

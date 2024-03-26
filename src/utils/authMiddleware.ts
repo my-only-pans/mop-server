@@ -14,8 +14,6 @@ export default function authMiddleWare(
   const authToken = req.headers.authorization;
   const token = authToken?.split(' ')[1];
 
-  console.log(token);
-
   if (token == null) return res.sendStatus(401);
 
   try {
