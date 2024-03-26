@@ -4,8 +4,8 @@ import {
   getModelForClass,
   prop,
 } from '@typegoose/typegoose';
-import Base from './Base';
 import { User } from './User';
+import { BaseWithTimeStamps } from './Base';
 
 export class RecipeIngredient {
   @prop({ required: true })
@@ -27,8 +27,9 @@ export class RecipeCategory {
   @prop({ required: true })
   _id!: string;
 }
+
 @ModelOptions({ schemaOptions: { collection: 'Recipe' } })
-export class Recipe extends Base {
+export class Recipe extends BaseWithTimeStamps {
   @prop({ required: true, ref: () => User })
   owner!: Ref<User>;
 
@@ -50,11 +51,11 @@ export class Recipe extends Base {
   @prop({ required: true, type: () => [RecipeIngredient] })
   ingredients!: RecipeIngredient[];
 
-  @prop({ required: true, type: () => [RecipeEquipment] })
-  equipment!: RecipeEquipment[];
+  @prop({ required: true, type: () => [String] })
+  equipment!: string[];
 
-  @prop({ type: () => [RecipeCategory] })
-  categories?: RecipeCategory[];
+  @prop({ type: () => [String] })
+  categories?: string[];
 
   @prop({ required: true })
   instructions!: string;

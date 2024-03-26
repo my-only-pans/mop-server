@@ -1,10 +1,10 @@
 import { Request, ParamsDictionary } from 'express-serve-static-core';
 
 export interface AuthenticatedRequest<
-  Params extends ParamsDictionary = any,
+  Query extends ParamsDictionary = any,
   Body = any
 > extends Request {
   userId?: string;
-  params: Params;
+  query: Query;
   body: Body;
 }

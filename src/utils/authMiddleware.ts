@@ -9,6 +9,7 @@ export default function authMiddleWare(
   next: NextFunction
 ) {
   const authToken = req.headers.authorization;
+
   const token = authToken?.split(' ')[1];
 
   if (token == null) return res.sendStatus(401);

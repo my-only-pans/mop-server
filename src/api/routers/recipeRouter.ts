@@ -3,6 +3,7 @@ import { MUser } from '../../models/User';
 import testHandler from '../controllers/testHandler';
 import createRecipeDraft from '../controllers/recipe/createRecipeDraft';
 import authMiddleWare from '../../utils/authMiddleware';
+import getRecipeDraft from '../controllers/recipe/getRecipeDraft';
 
 const recipeRouter = express.Router();
 
@@ -43,11 +44,8 @@ const recipeRouter = express.Router();
  *               categories:
  *                 type: array
  *                 items:
- *                   type: object
- *                   properties:
- *                     _id:
- *                       type: string
- *                       example: chicken
+ *                   type: string
+ *                   example: [chicken, salt, pepper]
  *     security:
  *       - BearerAuth: []
  *     responses:
@@ -58,6 +56,8 @@ const recipeRouter = express.Router();
  */
 
 recipeRouter.post('/draft', authMiddleWare, createRecipeDraft);
+
+recipeRouter.get('/draft', authMiddleWare, getRecipeDraft);
 
 // recipeRouter.post('/', createRecipeDraft);
 
