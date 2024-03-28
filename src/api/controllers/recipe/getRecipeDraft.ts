@@ -20,8 +20,6 @@ export default async function (
     owner: userId,
   }).lean();
 
-  console.log(draft);
-
   if (!draft) {
     return res.status(401).json({ error: 'Recipe Draft not found.' });
   }

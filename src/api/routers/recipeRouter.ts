@@ -4,6 +4,7 @@ import testHandler from '../controllers/testHandler';
 import createRecipeDraft from '../controllers/recipe/createRecipeDraft';
 import authMiddleWare from '../../utils/authMiddleware';
 import getRecipeDraft from '../controllers/recipe/getRecipeDraft';
+import saveRecipeDraft from '../controllers/recipe/saveRecipeDraft';
 
 const recipeRouter = express.Router();
 
@@ -57,8 +58,10 @@ const recipeRouter = express.Router();
 
 recipeRouter.post('/draft', authMiddleWare, createRecipeDraft);
 
+// TODO Annotation
 recipeRouter.get('/draft', authMiddleWare, getRecipeDraft);
 
-// recipeRouter.post('/', createRecipeDraft);
+// TODO Annotation
+recipeRouter.put('/draft', authMiddleWare, saveRecipeDraft);
 
 export default recipeRouter;

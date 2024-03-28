@@ -5,7 +5,12 @@ import {
   prop,
 } from '@typegoose/typegoose';
 import { User } from './User';
-import { RecipeCategory, RecipeEquipment, RecipeIngredient } from './Recipe';
+import {
+  RecipeCategory,
+  RecipeEquipment,
+  RecipeIngredient,
+  RecipeTextBlock,
+} from './Recipe';
 import { BaseWithTimeStamps } from './Base';
 
 @ModelOptions({ schemaOptions: { collection: 'RecipeDraft' } })
@@ -37,8 +42,8 @@ export class RecipeDraft extends BaseWithTimeStamps {
   @prop({ type: () => [String] })
   categories?: string[];
 
-  @prop()
-  instructions?: string;
+  @prop({ ype: () => [RecipeTextBlock] })
+  instructions?: RecipeTextBlock[];
 }
 
 export const MRecipeDraft = getModelForClass(RecipeDraft);

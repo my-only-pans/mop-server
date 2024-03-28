@@ -7,6 +7,23 @@ import {
 import { User } from './User';
 import { BaseWithTimeStamps } from './Base';
 
+export enum TextBlockType {
+  h1 = 'h1',
+  h2 = 'h2',
+  h3 = 'h3',
+  h4 = 'h4',
+  h5 = 'h5',
+  p = 'p',
+}
+
+export class RecipeTextBlock {
+  @prop({ required: true, enum: TextBlockType })
+  type!: TextBlockType;
+
+  @prop()
+  text?: string;
+}
+
 export class RecipeIngredient {
   @prop({ required: true })
   _id!: string;
@@ -57,8 +74,8 @@ export class Recipe extends BaseWithTimeStamps {
   @prop({ type: () => [String] })
   categories?: string[];
 
-  @prop({ required: true })
-  instructions!: string;
+  @prop({ required: true, type: () => [RecipeTextBlock] })
+  instructions!: RecipeTextBlock[];
 }
 
 export const MRecipe = getModelForClass(Recipe);
