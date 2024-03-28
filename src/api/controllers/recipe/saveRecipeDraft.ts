@@ -1,13 +1,16 @@
 import { Response } from 'express';
-import { MRecipeDraft, RecipeDraft } from '../../../models/RecipeDraft';
 import { AuthenticatedRequest } from '../../../types/CoreTypes';
+import { MRecipeDraft, RecipeDraft } from '../../../models/Recipe';
 
 export default async function saveRecipeDraft(
   req: AuthenticatedRequest<any, RecipeDraft>,
   res: Response
 ) {
   try {
-    const { _id, ...input } = req.body;
+    const {
+      userId,
+      body: { _id, ...input },
+    } = req;
 
     const updatedValues = { ...input };
 
@@ -16,8 +19,8 @@ export default async function saveRecipeDraft(
       return { ...i, _id: i._id.toLowerCase() };
     });
 
-    const draft = await MRecipeDraft.findByIdAndUpdate(
-      _id,
+    const draft = await MRecipeDraft.findOneAndUpdate(
+      { _id, owner: userId },
       updatedValues
     ).lean();
 

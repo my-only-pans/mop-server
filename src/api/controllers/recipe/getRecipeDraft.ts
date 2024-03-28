@@ -1,6 +1,6 @@
 import { Response } from 'express';
 import { AuthenticatedRequest } from '../../../types/CoreTypes';
-import { MRecipeDraft } from '../../../models/RecipeDraft';
+import { MRecipeDraft } from '../../../models/Recipe';
 
 type GetDraftQueryType = {
   draftId: string;

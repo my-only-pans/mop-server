@@ -1,5 +1,4 @@
 import { ModelOptions, getModelForClass, prop } from '@typegoose/typegoose';
-import { ObjectId } from 'mongoose';
 import { BaseWithTimeStamps } from './Base';
 
 @ModelOptions({ schemaOptions: { collection: 'User' } })

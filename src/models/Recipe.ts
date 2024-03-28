@@ -45,10 +45,48 @@ export class RecipeCategory {
   _id!: string;
 }
 
+@ModelOptions({ schemaOptions: { collection: 'RecipeDraft' } })
+export class RecipeDraft extends BaseWithTimeStamps {
+  @prop({ required: true, ref: () => User })
+  owner!: Ref<User>;
+
+  @prop({ required: true })
+  title!: string;
+
+  @prop({ required: true })
+  description!: string;
+
+  @prop({ required: true })
+  prepTime!: number;
+
+  @prop({ required: true })
+  cookTime!: number;
+
+  @prop({ required: true })
+  serving!: number;
+
+  @prop({ type: () => [RecipeIngredient] })
+  ingredients?: RecipeIngredient[];
+
+  @prop({ type: () => [String] })
+  equipment?: string[];
+
+  @prop({ type: () => [String] })
+  categories?: string[];
+
+  @prop({ ype: () => [RecipeTextBlock] })
+  instructions?: RecipeTextBlock[];
+}
+
+export const MRecipeDraft = getModelForClass(RecipeDraft);
+
 @ModelOptions({ schemaOptions: { collection: 'Recipe' } })
 export class Recipe extends BaseWithTimeStamps {
   @prop({ required: true, ref: () => User })
   owner!: Ref<User>;
+
+  @prop({ required: true, ref: () => RecipeDraft })
+  draft!: Ref<RecipeDraft>;
 
   @prop({ required: true })
   title!: string;

@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
-import { MRecipeDraft } from '../../../models/RecipeDraft';
 import Category from '../../../models/Category';
 import { AuthenticatedRequest } from '../../../types/CoreTypes';
+import { MRecipeDraft } from '../../../models/Recipe';
 
 interface RecipeDraftInput {
   title: string;
