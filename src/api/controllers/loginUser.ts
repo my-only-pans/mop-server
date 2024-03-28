@@ -11,6 +11,7 @@ interface LoginInputType {
 export default async function (req: Request, res: Response) {
   try {
     const input = req.body as LoginInputType;
+
     const { firebaseToken } = input;
 
     const { uid } = await firebaseAdmin.auth().verifyIdToken(firebaseToken);
