@@ -12,7 +12,7 @@ enum RecipeSortFields {
 interface GetRecipesQueryType {
   limit?: number;
   page?: number;
-  sortBy?: 'title' | 'prepTime' | 'cookTime' | 'rating';
+  sortBy?: 'title' | 'prepTime' | 'cookTime' | 'averageRating';
   sortOrder?: 'ascending' | 'descending' | 'asc' | 'desc';
   searchString?: string;
   owner?: string;
