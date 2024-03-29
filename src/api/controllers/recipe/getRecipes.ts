@@ -35,6 +35,7 @@ export default async function getRecipes(req: Request, res: Response) {
       categories,
       equipment,
       ingredients,
+      searchString,
     } = req.query as GetRecipesQueryType;
 
     // === FILTERS ===
@@ -95,6 +96,13 @@ export default async function getRecipes(req: Request, res: Response) {
       });
     }
     // === END OF INGREDIENT FILTER ===
+
+    // === SEARCHSTRING ===
+    if (searchString) {
+      const pattern = new RegExp(searchString, 'i');
+      filter.$and?.push({ title: { $regex: pattern } });
+    }
+    // === END OF SEARCHSTRING ===
 
     console.log('FILTER', JSON.stringify(filter));
 
