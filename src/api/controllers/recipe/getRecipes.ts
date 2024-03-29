@@ -128,6 +128,7 @@ export default async function getRecipes(req: Request, res: Response) {
     console.log('FILTER', JSON.stringify(filter));
 
     const recipes = await MRecipe.find(filter)
+      .populate('owner', { username: 1, _id: 1 })
       .sort({ [sortBy]: sortOrder }) // Sort
       .collation({ locale: 'en', strength: 2 }) // Ignore capitalization
       .skip((page - 1) * limit) // Pagination
