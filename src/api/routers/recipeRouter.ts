@@ -6,6 +6,7 @@ import authMiddleWare from '../../utils/authMiddleware';
 import getRecipeDraft from '../controllers/recipe/getRecipeDraft';
 import saveRecipeDraft from '../controllers/recipe/saveRecipeDraft';
 import publishRecipe from '../controllers/recipe/publishRecipe';
+import getRecipe from '../controllers/recipe/getRecipe';
 
 const recipeRouter = express.Router();
 
@@ -67,5 +68,8 @@ recipeRouter.put('/draft', authMiddleWare, saveRecipeDraft);
 
 // TODO Annotation
 recipeRouter.post('/', authMiddleWare, publishRecipe);
+
+// TODO Annotation
+recipeRouter.get('/:_id', getRecipe);
 
 export default recipeRouter;
