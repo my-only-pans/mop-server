@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { MRecipe } from '../../../models/Recipe';
+import { MRecipe, Recipe } from '../../../models/Recipe';
 import { mongoose } from '@typegoose/typegoose';
 
 enum RecipeSortFields {
@@ -33,10 +33,11 @@ export default async function getRecipes(req: Request, res: Response) {
       sortOrder = 'asc',
       owner,
       categories,
+      equipment,
     } = req.query as GetRecipesQueryType;
 
     // === FILTERS ===
-    let filter: { [key: string]: any } = { $and: [{}] };
+    let filter: mongoose.FilterQuery<any> = { $and: [{}] };
 
     if (owner) {
       if (!mongoose.Types.ObjectId.isValid(owner)) {
@@ -53,14 +54,30 @@ export default async function getRecipes(req: Request, res: Response) {
         categories: c,
       }));
 
-      filter = {
-        ...filter,
-        $and: categoriesFilterArr,
-      };
-    }
-    // === END OF FILTER ===
+      if (!filter.$and) {
+        filter.$and = [];
+      }
 
-    console.log(filter);
+      filter['$and'] = [...filter.$and, ...categoriesFilterArr];
+    }
+    // === END OF CATEGORIES FILTER ===
+
+    // EQUIPMENT FILTER
+    const parsedEquipment = equipment && JSON.parse(equipment);
+    if (parsedEquipment) {
+      if (!filter.$and) {
+        filter.$and = [];
+      }
+
+      filter.$and.push({
+        $expr: {
+          $setIsSubset: ['$equipment', parsedEquipment],
+        },
+      });
+    }
+    // === END OF EQUIPMENT FILTER ===
+
+    console.log('FILTER', JSON.stringify(filter));
 
     const recipes = await MRecipe.find(filter)
       .sort({ [sortBy]: sortOrder }) // Sort
