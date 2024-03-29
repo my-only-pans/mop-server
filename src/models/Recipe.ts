@@ -108,11 +108,17 @@ export class Recipe extends BaseWithTimeStamps {
   @prop({ required: true })
   cookTime!: number;
 
+  @prop({})
+  difficulty?: number;
+
   @prop({ required: true })
   serving!: number;
 
   @prop({ required: true, type: () => [RecipeIngredient] })
   ingredients!: RecipeIngredient[];
+
+  @prop({ required: true, type: () => [String] })
+  ingredientTags!: string[];
 
   @prop({ required: true, type: () => [String] })
   equipment!: string[];
