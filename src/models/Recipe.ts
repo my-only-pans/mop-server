@@ -45,6 +45,14 @@ export class RecipeCategory {
   _id!: string;
 }
 
+export class RecipeRating {
+  @prop({ required: true, type: () => Number })
+  rating!: number;
+
+  @prop({ required: true, type: () => User })
+  user!: User;
+}
+
 @ModelOptions({ schemaOptions: { collection: 'RecipeDraft' } })
 export class RecipeDraft extends BaseWithTimeStamps {
   @prop({ required: true, ref: () => User })
@@ -114,6 +122,15 @@ export class Recipe extends BaseWithTimeStamps {
 
   @prop({ required: true, type: () => [RecipeTextBlock] })
   instructions!: RecipeTextBlock[];
+
+  @prop({ type: () => [RecipeRating] })
+  ratings?: RecipeRating[];
+
+  @prop({ type: Number, default: 0, max: 5 })
+  totalRatings?: number;
+
+  @prop({ type: Number, default: 0 })
+  numberOfRatings?: number;
 }
 
 export const MRecipe = getModelForClass(Recipe);
