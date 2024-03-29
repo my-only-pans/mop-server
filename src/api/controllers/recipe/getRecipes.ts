@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import { MRecipe } from '../../../models/Recipe';
+import { mongoose } from '@typegoose/typegoose';
 
 enum RecipeSortFields {
   title = 'title',
@@ -29,13 +30,21 @@ export default async function getRecipes(req: Request, res: Response) {
     page = 1,
     sortBy = 'title',
     sortOrder = 'asc',
+    owner,
   } = req.query as GetRecipesQueryType;
-  let sort = { [sortBy]: sortOrder };
 
   let filter: { [key: string]: any } = {};
 
+  if (owner) {
+    if (!mongoose.Types.ObjectId.isValid(owner)) {
+      return res.status(400).json({ error: 'Bad Request' });
+    } else {
+      filter.owner = owner;
+    }
+  }
+
   const recipes = await MRecipe.find(filter)
-    .sort(sort) // Sort
+    .sort({ [sortBy]: sortOrder }) // Sort
     .collation({ locale: 'en', strength: 2 }) // Ignore capitalization
     .skip((page - 1) * limit) // Pagination
     .limit(limit ?? 10); // Limit
