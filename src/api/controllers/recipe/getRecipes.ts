@@ -34,6 +34,7 @@ export default async function getRecipes(req: Request, res: Response) {
       owner,
       categories,
       equipment,
+      ingredients,
     } = req.query as GetRecipesQueryType;
 
     // === FILTERS ===
@@ -76,6 +77,24 @@ export default async function getRecipes(req: Request, res: Response) {
       });
     }
     // === END OF EQUIPMENT FILTER ===
+
+    // INGREDIENT FILTER
+    const parsedIngredients = ingredients && JSON.parse(ingredients);
+
+    console.log('PARSED INGREDIENTS', parsedIngredients);
+
+    if (parsedIngredients) {
+      if (!filter.$and) {
+        filter.$and = [];
+      }
+
+      filter.$and.push({
+        $expr: {
+          $setIsSubset: ['$ingredientTags', parsedIngredients],
+        },
+      });
+    }
+    // === END OF INGREDIENT FILTER ===
 
     console.log('FILTER', JSON.stringify(filter));
 
