@@ -12,11 +12,11 @@ export default async function (
 ) {
   const {
     userId,
-    query: { draftId },
+    params: { _id },
   } = req;
 
   const draft = await MRecipeDraft.findOne({
-    _id: draftId,
+    _id: _id,
     owner: userId,
   }).lean();
 
