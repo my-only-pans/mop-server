@@ -133,10 +133,10 @@ export class Recipe extends BaseWithTimeStamps {
   ratings?: RecipeRating[];
 
   @prop({ type: Number, default: 0, max: 5 })
-  totalRatings?: number;
+  averageRating?: number;
 
   @prop({ type: Number, default: 0 })
-  numberOfRatings?: number;
+  totalRates?: number;
 }
 
 export const MRecipe = getModelForClass(Recipe);
