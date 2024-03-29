@@ -9,6 +9,7 @@ import publishRecipe from '../controllers/recipe/publishRecipe';
 import getRecipe from '../controllers/recipe/getRecipe';
 import getRecipes from '../controllers/recipe/getRecipes';
 import rateRecipe from '../controllers/recipe/rateRecipe';
+import getRecipeDrafts from '../controllers/recipe/getRecipeDrafts';
 
 const recipeRouter = express.Router();
 
@@ -63,7 +64,10 @@ const recipeRouter = express.Router();
 recipeRouter.post('/draft', authMiddleWare, createRecipeDraft);
 
 // TODO Annotation
-recipeRouter.get('/draft', authMiddleWare, getRecipeDraft);
+recipeRouter.get('/draft/:_id', authMiddleWare, getRecipeDraft);
+
+// TODO Annotation
+recipeRouter.get('/draft', authMiddleWare, getRecipeDrafts);
 
 // TODO Annotation
 recipeRouter.put('/draft', authMiddleWare, saveRecipeDraft);
