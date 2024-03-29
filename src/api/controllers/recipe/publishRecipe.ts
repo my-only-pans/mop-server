@@ -38,20 +38,19 @@ export default async function publishRecipe(
     if (existingRecipe) {
       const recipe = await MRecipe.findOneAndUpdate(
         { owner: userId, draft: draftId },
-        input,
-        ingredientTags
+        { input, ingredientTags, updatedAt: new Date() }
       ).lean();
 
       return res.send(recipe);
+    } else {
+      const newRecipe = await new MRecipe({
+        draft: draftId,
+        ...input,
+        ingredientTags,
+      }).save();
+
+      res.send(newRecipe);
     }
-
-    const newRecipe = await new MRecipe({
-      draft: draftId,
-      ...input,
-      ingredientTags,
-    }).save();
-
-    res.send(newRecipe);
   } catch (error) {
     res.status(401).json({ error });
   }

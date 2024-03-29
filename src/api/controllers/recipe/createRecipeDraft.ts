@@ -39,7 +39,12 @@ export default async function createRecipeDraft(
 
   try {
     const draft = (
-      await new MRecipeDraft({ owner: userId, ...body }).save()
+      await new MRecipeDraft({
+        owner: userId,
+        ...body,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      }).save()
     ).toObject();
 
     res.send(draft);

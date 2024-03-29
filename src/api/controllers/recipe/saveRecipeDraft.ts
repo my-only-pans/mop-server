@@ -21,7 +21,7 @@ export default async function saveRecipeDraft(
 
     const draft = await MRecipeDraft.findOneAndUpdate(
       { _id, owner: userId },
-      updatedValues
+      { ...updatedValues, updatedAt: new Date() }
     ).lean();
 
     res.send(draft);
