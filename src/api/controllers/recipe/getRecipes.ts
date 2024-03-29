@@ -36,6 +36,9 @@ export default async function getRecipes(req: Request, res: Response) {
       equipment,
       ingredients,
       searchString,
+      prepTime,
+      cookTime,
+      difficulty,
     } = req.query as GetRecipesQueryType;
 
     // === FILTERS ===
@@ -49,7 +52,7 @@ export default async function getRecipes(req: Request, res: Response) {
       }
     }
 
-    // CATEGORIES FILTER
+    // === CATEGORIES FILTER ===
     const parsedCategories = categories && JSON.parse(categories);
     if (parsedCategories?.length) {
       const categoriesFilterArr = parsedCategories.map((c: string) => ({
@@ -64,7 +67,7 @@ export default async function getRecipes(req: Request, res: Response) {
     }
     // === END OF CATEGORIES FILTER ===
 
-    // EQUIPMENT FILTER
+    // === EQUIPMENT FILTER ===
     const parsedEquipment = equipment && JSON.parse(equipment);
     if (parsedEquipment) {
       if (!filter.$and) {
@@ -103,6 +106,24 @@ export default async function getRecipes(req: Request, res: Response) {
       filter.$and?.push({ title: { $regex: pattern } });
     }
     // === END OF SEARCHSTRING ===
+
+    // === PREP TIME ===
+    if (prepTime !== null && prepTime !== undefined) {
+      filter.$and?.push({ prepTime: { $lte: prepTime } });
+    }
+    // === END OF PREP TIME ===
+
+    // === PREP TIME ===
+    if (cookTime !== null && cookTime !== undefined) {
+      filter.$and?.push({ cookTime: { $lte: cookTime } });
+    }
+    // === END OF PREP TIME ===
+
+    // === PREP TIME ===
+    if (difficulty !== null && difficulty !== undefined) {
+      filter.$and?.push({ difficulty: { $lte: difficulty } });
+    }
+    // === END OF PREP TIME ===
 
     console.log('FILTER', JSON.stringify(filter));
 
