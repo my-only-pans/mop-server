@@ -1,9 +1,8 @@
 import { ModelOptions, getModelForClass, prop } from '@typegoose/typegoose';
-import { ObjectId } from 'mongoose';
-import Base from './Base';
+import { BaseWithTimeStamps } from './Base';
 
 @ModelOptions({ schemaOptions: { collection: 'User' } })
-export class User extends Base {
+export class User extends BaseWithTimeStamps {
   @prop({ required: true, unique: true })
   uid!: string;
 
