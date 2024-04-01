@@ -28,16 +28,15 @@ export default async function createRecipeDraft(
     } = body;
 
     if (Object.keys(rest).length)
-      return res.status(400).json({ message: 'Invalid data received' });
-    if (!title) return res.status(400).json({ message: 'Title is required' });
+      return res.status(400).json({ error: 'Invalid data received' });
+    if (!title) return res.status(400).json({ error: 'Title is required' });
     if (!description)
-      return res.status(400).json({ message: 'Description is required' });
+      return res.status(400).json({ error: 'Description is required' });
     if (!prepTime)
-      return res.status(400).json({ message: 'Prep Time is required' });
+      return res.status(400).json({ error: 'Prep Time is required' });
     if (!cookTime)
-      return res.status(400).json({ message: 'Cook Time is required' });
-    if (!serving)
-      return res.status(400).json({ message: 'Serving is required' });
+      return res.status(400).json({ error: 'Cook Time is required' });
+    if (!serving) return res.status(400).json({ error: 'Serving is required' });
 
     const draft = (
       await new MRecipeDraft({
