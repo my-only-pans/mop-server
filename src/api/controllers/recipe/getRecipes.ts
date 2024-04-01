@@ -125,7 +125,7 @@ export default async function getRecipes(req: Request, res: Response) {
     }
     // === END OF PREP TIME ===
 
-    console.log('FILTER', JSON.stringify(filter));
+    const total = await MRecipe.countDocuments(filter);
 
     const recipes = await MRecipe.find(filter)
       .populate('owner', { username: 1, _id: 1 })
@@ -134,7 +134,10 @@ export default async function getRecipes(req: Request, res: Response) {
       .skip((page - 1) * limit) // Pagination
       .limit(limit ?? 10); // Limit
 
-    res.json(recipes);
+    res.json({
+      total,
+      recipes,
+    });
   } catch (error) {
     console.log(error);
     res.status(500).json({ error: 'Bad Request' });
