@@ -12,6 +12,8 @@ export default async function saveRecipeDraft(
       body: { _id, ...input },
     } = req;
 
+    console.log('input:',input);
+
     const updatedValues = { ...input };
 
     input.equipment = input.equipment?.map((e) => e.toLowerCase());
@@ -23,8 +25,6 @@ export default async function saveRecipeDraft(
       { _id, owner: userId },
       { ...updatedValues, updatedAt: new Date() }
     ).lean();
-
-      console.log(req.body);
 
     res.send(draft);
   } catch (error) {
