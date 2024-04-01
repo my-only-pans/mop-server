@@ -55,6 +55,7 @@ export default async function publishRecipe(
 
     res.send(newRecipe);
   } catch (error) {
+    console.log(error);
     res.status(401).json({ error });
   }
 }
