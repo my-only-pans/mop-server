@@ -51,6 +51,8 @@ export default async function publishRecipe(
       ingredientTags,
     }).save();
 
+    console.log(req.body);
+
     res.send(newRecipe);
   } catch (error) {
     res.status(401).json({ error });

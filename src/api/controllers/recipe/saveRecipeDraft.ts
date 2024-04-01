@@ -24,6 +24,8 @@ export default async function saveRecipeDraft(
       updatedValues
     ).lean();
 
+      console.log(req.body);
+
     res.send(draft);
   } catch (error) {
     res.status(401).json({ error });
