@@ -11,6 +11,7 @@ import getRecipes from '../controllers/recipe/getRecipes';
 import rateRecipe from '../controllers/recipe/rateRecipe';
 import getRecipeDrafts from '../controllers/recipe/getRecipeDrafts';
 import saveRecipe from '../controllers/recipe/saveRecipe';
+import getSavedRecipes from '../controllers/recipe/getSavedRecipes';
 
 const recipeRouter = express.Router();
 
@@ -64,28 +65,31 @@ const recipeRouter = express.Router();
 
 recipeRouter.post('/draft', authMiddleWare, createRecipeDraft);
 
-// TODO Annotation
+// TODO Annotation - Get Recipe Draft
 recipeRouter.get('/draft/:_id', authMiddleWare, getRecipeDraft);
 
-// TODO Annotation
+// TODO Annotation - Get Recipe Drafts
 recipeRouter.get('/draft', authMiddleWare, getRecipeDrafts);
 
-// TODO Annotation
+// TODO Annotation - Save Recipe Draft
 recipeRouter.put('/draft', authMiddleWare, saveRecipeDraft);
 
-// TODO Annotation
+// TODO Annotation - Publish Recipe
 recipeRouter.post('/', authMiddleWare, publishRecipe);
 
-// TODO Annotation
+// TODO Annotation - Get Recipe
 recipeRouter.get('/:_id', getRecipe);
 
-// TODO Annotation
+// TODO Annotation - Get Recipes
 recipeRouter.get('/', getRecipes);
 
-// TODO Annotation
+// TODO Annotation - Rate Recipe
 recipeRouter.post('/rate', authMiddleWare, rateRecipe);
 
 // TODO Annotation - Save Recipe
-recipeRouter.post('/save', authMiddleWare, saveRecipe);
+recipeRouter.post('/saved', authMiddleWare, saveRecipe);
+
+// TODO Annotation - Get Saved Recipe
+recipeRouter.get('/saved', authMiddleWare, getSavedRecipes);
 
 export default recipeRouter;
