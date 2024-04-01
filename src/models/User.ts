@@ -26,6 +26,9 @@ export class User extends BaseWithTimeStamps {
 
   @prop({ type: () => [String] })
   availableIngredients?: string[];
+
+  @prop({ type: () => [String], default: () => [] })
+  savedRecipes?: string[];
 }
 
 export const MUser = getModelForClass(User);
