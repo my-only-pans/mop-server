@@ -16,7 +16,7 @@ interface GetRecipesQueryType {
   sortOrder?: 'ascending' | 'descending' | 'asc' | 'desc';
   searchString?: string;
   owner?: string;
-  categories?: string; // These are arrays and needed to be parsed
+  categories?: string[]; // These are arrays and needed to be parsed
   ingredients?: string; // These are arrays and needed to be parsed
   equipment?: string; // These are arrays and needed to be parsed
   prepTime?: number;
@@ -53,9 +53,8 @@ export default async function getRecipes(req: Request, res: Response) {
     }
 
     // === CATEGORIES FILTER ===
-    const parsedCategories = categories && JSON.parse(categories);
-    if (parsedCategories?.length) {
-      const categoriesFilterArr = parsedCategories.map((c: string) => ({
+    if (categories?.length) {
+      const categoriesFilterArr = categories.map((c: string) => ({
         categories: c,
       }));
 
@@ -85,8 +84,6 @@ export default async function getRecipes(req: Request, res: Response) {
     // INGREDIENT FILTER
     const parsedIngredients = ingredients && JSON.parse(ingredients);
 
-    console.log('PARSED INGREDIENTS', parsedIngredients);
-
     if (parsedIngredients) {
       if (!filter.$and) {
         filter.$and = [];
@@ -108,19 +105,19 @@ export default async function getRecipes(req: Request, res: Response) {
     // === END OF SEARCHSTRING ===
 
     // === PREP TIME ===
-    if (prepTime !== null && prepTime !== undefined) {
+    if (prepTime) {
       filter.$and?.push({ prepTime: { $lte: prepTime } });
     }
     // === END OF PREP TIME ===
 
-    // === PREP TIME ===
-    if (cookTime !== null && cookTime !== undefined) {
+    // === COOK TIME ===
+    if (cookTime) {
       filter.$and?.push({ cookTime: { $lte: cookTime } });
     }
-    // === END OF PREP TIME ===
+    // === END OF COOK TIME ===
 
     // === PREP TIME ===
-    if (difficulty !== null && difficulty !== undefined) {
+    if (difficulty) {
       filter.$and?.push({ difficulty: { $lte: difficulty } });
     }
     // === END OF PREP TIME ===
