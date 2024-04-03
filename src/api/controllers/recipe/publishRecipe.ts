@@ -33,12 +33,36 @@ export default async function publishRecipe(
       { _id: 1 }
     ).lean();
 
+    const {
+      cookTime,
+      description,
+      prepTime,
+      serving,
+      title,
+      categories,
+      equipment,
+      ingredients,
+      instructions,
+    } = input;
+
     const ingredientTags = input.ingredients?.map((i) => i._id);
 
     if (existingRecipe) {
       const recipe = await MRecipe.findOneAndUpdate(
         { owner: userId, draft: draftId },
-        { input, ingredientTags, updatedAt: new Date() }
+        {
+          cookTime,
+          description,
+          prepTime,
+          serving,
+          title,
+          categories,
+          equipment,
+          ingredients,
+          instructions,
+          ingredientTags,
+          updatedAt: new Date(),
+        }
       ).lean();
 
       return res.send(recipe);
