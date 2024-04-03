@@ -12,6 +12,7 @@ import rateRecipe from '../controllers/recipe/rateRecipe';
 import getRecipeDrafts from '../controllers/recipe/getRecipeDrafts';
 import saveRecipe from '../controllers/recipe/saveRecipe';
 import getSavedRecipes from '../controllers/recipe/getSavedRecipes';
+import unsaveRecipe from '../controllers/recipe/unsaveRecipe';
 
 const recipeRouter = express.Router();
 
@@ -85,6 +86,9 @@ recipeRouter.post('/rate', authMiddleWare, rateRecipe);
 
 // TODO Annotation - Save Recipe
 recipeRouter.post('/saved', authMiddleWare, saveRecipe);
+
+// TODO Annotation - Unsave Recipe
+recipeRouter.delete('/saved', authMiddleWare, unsaveRecipe);
 
 // TODO Annotation - Get Saved Recipe
 recipeRouter.get('/saved', authMiddleWare, getSavedRecipes);
