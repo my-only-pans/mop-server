@@ -54,7 +54,7 @@ export default async function rateRecipe(
       .populate('owner')
       .lean()) as Recipe;
 
-    return updatedRecipe;
+    res.json(updatedRecipe);
   } catch (error) {
     console.log(error);
     res.status(400).json({ error: 'Bad Request' });

@@ -28,7 +28,7 @@ export default async function saveRecipe(
       { new: true }
     ).lean();
 
-    return user?.savedRecipes;
+    res.json(user?.savedRecipes);
   } catch (error) {
     res.status(401).json({ error: 'Something went wrong' });
   }

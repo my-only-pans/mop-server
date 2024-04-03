@@ -77,9 +77,6 @@ recipeRouter.put('/draft', authMiddleWare, saveRecipeDraft);
 // TODO Annotation - Publish Recipe
 recipeRouter.post('/', authMiddleWare, publishRecipe);
 
-// TODO Annotation - Get Recipe
-recipeRouter.get('/:_id', getRecipe);
-
 // TODO Annotation - Get Recipes
 recipeRouter.get('/', getRecipes);
 
@@ -92,4 +89,10 @@ recipeRouter.post('/saved', authMiddleWare, saveRecipe);
 // TODO Annotation - Get Saved Recipe
 recipeRouter.get('/saved', authMiddleWare, getSavedRecipes);
 
+// TODO Annotation - Get Recipe
+recipeRouter.get('/:_id', getRecipe);
+
 export default recipeRouter;
+
+//
+//

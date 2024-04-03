@@ -13,7 +13,7 @@ export default async function getRecipeDrafts(
 
     const drafts = await MRecipeDraft.find({ owner: userId }).lean();
 
-    return drafts;
+    res.json(drafts);
   } catch (error) {
     res.status(400).json({
       error: 'Bad Request',

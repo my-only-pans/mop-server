@@ -16,7 +16,7 @@ export default async function getSavedRecipes(
       _id: { $in: user?.savedRecipes || [] },
     }).lean();
 
-    return recipes;
+    res.json(recipes);
   } catch (error) {
     res.status(401).json({ error: 'Something went wrong.' });
   }
