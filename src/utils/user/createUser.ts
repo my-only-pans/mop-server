@@ -1,6 +1,5 @@
 import { MUser } from '../../models/User';
 import hashPassword from './hashPassword';
-import firebaseAdmin from '../../utils/firebaseAdmin';
 
 interface CreateUserInputType {
   email: string;
