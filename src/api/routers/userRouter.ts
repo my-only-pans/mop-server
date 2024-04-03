@@ -3,6 +3,8 @@ import registerUser from '../controllers/registerUser';
 import loginUser from '../controllers/loginUser';
 import getMyProfile from '../controllers/getMyProfile';
 import authMiddleWare from '../../utils/authMiddleware';
+import addUserEquipment from '../controllers/user/addUserEquipment';
+import addUserIngredient from '../controllers/user/addUserIngredient';
 
 const userRouter = express.Router();
 
@@ -128,5 +130,9 @@ userRouter.post('/login', loginUser);
  *         description: Bad request
  */
 userRouter.get('/myProfile', authMiddleWare, getMyProfile);
+
+userRouter.post('/addEquipment', authMiddleWare, addUserEquipment);
+
+userRouter.post('/addIngredient', authMiddleWare, addUserIngredient);
 
 export default userRouter;

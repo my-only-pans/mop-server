@@ -25,7 +25,7 @@ export class User extends BaseWithTimeStamps {
   allergens?: string[];
 
   @prop({ type: () => [String], default: () => [] })
-  availableIngredients?: string[];
+  ingredients?: string[];
 
   @prop({ type: () => [String], default: () => [] })
   savedRecipes?: string[];
