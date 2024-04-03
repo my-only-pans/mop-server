@@ -14,8 +14,16 @@ export default async function getMyProfile(
     return res.status(500).json('User not registered');
   }
 
-  const { _id, username, firstName, lastName, email, ingredients, equipment } =
-    user;
+  const {
+    _id,
+    username,
+    firstName,
+    lastName,
+    email,
+    ingredients,
+    equipment,
+    phone,
+  } = user;
 
   res.send({
     _id,
@@ -23,6 +31,7 @@ export default async function getMyProfile(
     firstName,
     lastName,
     email,
+    phone,
     ingredients,
     equipment,
   });
