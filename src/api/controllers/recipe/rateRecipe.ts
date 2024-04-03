@@ -18,6 +18,8 @@ export default async function rateRecipe(
       body: { recipeId, rating },
     } = req;
 
+    console.log('server rating', rating);
+
     if (!userId) return res.status(400).json({ error: 'Forbidden' });
 
     const newUserRating = {

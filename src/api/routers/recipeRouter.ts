@@ -12,6 +12,7 @@ import rateRecipe from '../controllers/recipe/rateRecipe';
 import getRecipeDrafts from '../controllers/recipe/getRecipeDrafts';
 import saveRecipe from '../controllers/recipe/saveRecipe';
 import getSavedRecipes from '../controllers/recipe/getSavedRecipes';
+import getMyRecipes from '../controllers/recipe/getMyRecipes';
 
 const recipeRouter = express.Router();
 
@@ -91,5 +92,8 @@ recipeRouter.post('/saved', authMiddleWare, saveRecipe);
 
 // TODO Annotation - Get Saved Recipe
 recipeRouter.get('/saved', authMiddleWare, getSavedRecipes);
+
+// TODO Annotation - Get MyRecipes of logged in user
+recipeRouter.get('/myRecipes', authMiddleWare, getMyRecipes);
 
 export default recipeRouter;
