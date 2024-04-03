@@ -17,8 +17,8 @@ interface GetRecipesQueryType {
   searchString?: string;
   owner?: string;
   categories?: string[]; // These are arrays and needed to be parsed
-  ingredients?: string; // These are arrays and needed to be parsed
-  equipment?: string; // These are arrays and needed to be parsed
+  ingredients?: string[]; // These are arrays and needed to be parsed
+  equipment?: string[]; // These are arrays and needed to be parsed
   prepTime?: number;
   cookTime?: number;
   difficulty?: number;
@@ -67,31 +67,28 @@ export default async function getRecipes(req: Request, res: Response) {
     // === END OF CATEGORIES FILTER ===
 
     // === EQUIPMENT FILTER ===
-    const parsedEquipment = equipment && JSON.parse(equipment);
-    if (parsedEquipment) {
+    if (equipment?.length) {
       if (!filter.$and) {
         filter.$and = [];
       }
 
       filter.$and.push({
         $expr: {
-          $setIsSubset: ['$equipment', parsedEquipment],
+          $setIsSubset: ['$equipment', equipment],
         },
       });
     }
     // === END OF EQUIPMENT FILTER ===
 
     // INGREDIENT FILTER
-    const parsedIngredients = ingredients && JSON.parse(ingredients);
-
-    if (parsedIngredients) {
+    if (ingredients?.length) {
       if (!filter.$and) {
         filter.$and = [];
       }
 
       filter.$and.push({
         $expr: {
-          $setIsSubset: ['$ingredientTags', parsedIngredients],
+          $setIsSubset: ['$ingredientTags', ingredients],
         },
       });
     }
