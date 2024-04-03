@@ -1,6 +1,29 @@
-import { prop, mongoose } from "@typegoose/typegoose";
+import { prop, mongoose } from '@typegoose/typegoose';
 
-export default class Base {
-  @prop({ type: () => String, default: () => new mongoose.Types.ObjectId() })
+export class Base {
+  @prop({
+    type: () => mongoose.Types.ObjectId,
+    default: () => new mongoose.Types.ObjectId(),
+  })
   _id!: mongoose.Types.ObjectId;
+}
+
+export class BaseWithTimeStamps {
+  @prop({
+    type: () => mongoose.Types.ObjectId,
+    default: () => new mongoose.Types.ObjectId(),
+  })
+  _id!: mongoose.Types.ObjectId;
+
+  @prop({
+    type: () => Date,
+    default: () => Date.now(),
+  })
+  createdAt!: Date;
+
+  @prop({
+    type: () => Date,
+    default: () => Date.now(),
+  })
+  updatedAt!: Date;
 }

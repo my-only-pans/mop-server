@@ -1,9 +1,8 @@
 import { ModelOptions, getModelForClass, prop } from '@typegoose/typegoose';
-import { ObjectId } from 'mongoose';
-import Base from './Base';
+import { BaseWithTimeStamps } from './Base';
 
 @ModelOptions({ schemaOptions: { collection: 'User' } })
-export class User extends Base {
+export class User extends BaseWithTimeStamps {
   @prop({ required: true, unique: true })
   uid!: string;
 
@@ -19,14 +18,17 @@ export class User extends Base {
   @prop({ required: true })
   lastName!: string;
 
-  @prop({ type: () => [String] })
+  @prop({ type: () => [String], default: () => [] })
   equipment?: string[];
 
   @prop({ type: () => [String] })
   allergens?: string[];
 
-  @prop({ type: () => [String] })
-  availableIngredients?: string[];
+  @prop({ type: () => [String], default: () => [] })
+  ingredients?: string[];
+
+  @prop({ type: () => [String], default: () => [] })
+  savedRecipes?: string[];
 }
 
 export const MUser = getModelForClass(User);
