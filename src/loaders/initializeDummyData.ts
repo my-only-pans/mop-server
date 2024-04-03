@@ -16,5 +16,6 @@ export default async function initializeDummyData(): Promise<void> {
     email: config.DEFAULT_ADMIN_EMAIL,
     password: config.DEFAULT_ADMIN_PASSWORD,
     confirmPassword: config.DEFAULT_ADMIN_PASSWORD,
+    phone: config.DEFAULT_ADMIN_PHONE,
   });
 }

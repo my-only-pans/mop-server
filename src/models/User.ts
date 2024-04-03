@@ -4,13 +4,16 @@ import { BaseWithTimeStamps } from './Base';
 @ModelOptions({ schemaOptions: { collection: 'User' } })
 export class User extends BaseWithTimeStamps {
   @prop({ required: true, unique: true })
-  uid!: string;
-
-  @prop({ required: true, unique: true })
   username!: string;
 
   @prop({ required: true, unique: true })
   email!: string;
+
+  @prop({ required: true })
+  phone!: string;
+
+  @prop({ required: true })
+  password!: string;
 
   @prop({ required: true })
   firstName!: string;
