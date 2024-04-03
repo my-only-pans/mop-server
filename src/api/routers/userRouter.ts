@@ -3,6 +3,10 @@ import registerUser from '../controllers/registerUser';
 import loginUser from '../controllers/loginUser';
 import getMyProfile from '../controllers/getMyProfile';
 import authMiddleWare from '../../utils/authMiddleware';
+import addUserEquipment from '../controllers/user/addUserEquipment';
+import removeUserEquipment from '../controllers/user/removeUserEquipment';
+import addUserIngredients from '../controllers/user/addUserIngredients';
+import removeUserIngredient from '../controllers/user/removeUserIngredient';
 
 const userRouter = express.Router();
 
@@ -128,5 +132,13 @@ userRouter.post('/login', loginUser);
  *         description: Bad request
  */
 userRouter.get('/myProfile', authMiddleWare, getMyProfile);
+
+userRouter.post('/addEquipment', authMiddleWare, addUserEquipment);
+
+userRouter.post('/addIngredients', authMiddleWare, addUserIngredients);
+
+userRouter.post('/removeEquipment', authMiddleWare, removeUserEquipment);
+
+userRouter.post('/removeIngredient', authMiddleWare, removeUserIngredient);
 
 export default userRouter;

@@ -18,14 +18,14 @@ export class User extends BaseWithTimeStamps {
   @prop({ required: true })
   lastName!: string;
 
-  @prop({ type: () => [String] })
+  @prop({ type: () => [String], default: () => [] })
   equipment?: string[];
 
   @prop({ type: () => [String] })
   allergens?: string[];
 
-  @prop({ type: () => [String] })
-  availableIngredients?: string[];
+  @prop({ type: () => [String], default: () => [] })
+  ingredients?: string[];
 
   @prop({ type: () => [String], default: () => [] })
   savedRecipes?: string[];
