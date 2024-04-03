@@ -11,6 +11,7 @@ const config = cleanEnv(process.env, {
   DEFAULT_ADMIN_USERNAME: str(),
   DEFAULT_ADMIN_EMAIL: email(),
   DEFAULT_ADMIN_PASSWORD: str({ default: 'password123' }),
+  DEFAULT_ADMIN_PHONE: str({ default: '1234567890' }),
   // FIREBASE
   SERVICE_PROJECT_ID: str(),
   SERVICE_ACCOUNT_PRIVATE_KEY: str(),

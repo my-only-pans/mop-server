@@ -3,6 +3,7 @@ import getErrorMessage from '../../utils/getErrorMessage';
 import createJwt from '../../utils/user/createJwt';
 import { MUser } from '../../models/User';
 import firebaseAdmin from '../../utils/firebaseAdmin';
+import hashPassword from '../../utils/user/hashPassword';
 
 export default async function registerUser(req: Request, res: Response) {
   try {
@@ -12,8 +13,15 @@ export default async function registerUser(req: Request, res: Response) {
       return res.status(400).send('Input is required');
     }
 
-    const { email, password, confirmPassword, username, firstName, lastName } =
-      input;
+    const {
+      email,
+      password,
+      confirmPassword,
+      username,
+      firstName,
+      lastName,
+      phone,
+    } = input;
 
     if (!email) {
       return res.status(400).send('Email is required');
@@ -27,6 +35,8 @@ export default async function registerUser(req: Request, res: Response) {
       return res.status(400).send('First Name is required');
     } else if (!lastName) {
       return res.status(400).send('Last Name is required');
+    } else if (!phone) {
+      return res.status(400).send('Phone Number is required');
     }
 
     const emailUsed = !!(await MUser.countDocuments({ email }));
@@ -45,17 +55,15 @@ export default async function registerUser(req: Request, res: Response) {
       return res.status(400).send('Password must match');
     }
 
-    const userRecord = await firebaseAdmin.auth().createUser({
-      email: email,
-      password: password,
-    });
+    const hashedPassword = await hashPassword(password);
 
     const newUser = new MUser({
-      uid: userRecord.uid,
       firstName,
       lastName,
       username,
       email,
+      phone,
+      password: hashedPassword,
     });
 
     await newUser.save();

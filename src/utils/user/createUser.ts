@@ -9,6 +9,7 @@ interface CreateUserInputType {
   username: string;
   firstName: string;
   lastName: string;
+  phone: string;
 }
 
 export default async function createUser(
@@ -18,8 +19,15 @@ export default async function createUser(
     throw new Error('input is required');
   }
 
-  const { email, password, confirmPassword, username, firstName, lastName } =
-    input;
+  const {
+    email,
+    password,
+    confirmPassword,
+    username,
+    firstName,
+    lastName,
+    phone,
+  } = input;
 
   if (!email) {
     throw new Error('Email is required');
@@ -51,17 +59,15 @@ export default async function createUser(
     throw new Error('Password must match');
   }
 
-  const userRecord = await firebaseAdmin.auth().createUser({
-    email: email,
-    password: password,
-  });
+  const hashedPassword = await hashPassword(password);
 
   const newUser = new MUser({
-    uid: userRecord.uid,
     firstName,
     lastName,
     username,
     email,
+    phone,
+    password: hashedPassword,
   });
 
   await newUser.save();
