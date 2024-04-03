@@ -2,7 +2,6 @@ import { type Request, type Response } from 'express';
 import getErrorMessage from '../../utils/getErrorMessage';
 import createJwt from '../../utils/user/createJwt';
 import { MUser } from '../../models/User';
-import firebaseAdmin from '../../utils/firebaseAdmin';
 import hashPassword from '../../utils/user/hashPassword';
 
 export default async function registerUser(req: Request, res: Response) {
