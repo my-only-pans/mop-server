@@ -2,25 +2,25 @@ import { Response } from 'express';
 import { MUser } from '../../../models/User';
 import { AuthenticatedRequest } from '../../../types/CoreTypes';
 
-export default async function addUserEquipment(
-  req: AuthenticatedRequest<any, { ingredient: string[] }>,
+export default async function addUserIngredients(
+  req: AuthenticatedRequest<any, { ingredients: string[] }>,
   res: Response
 ) {
   try {
     const {
       userId,
-      body: { ingredient },
+      body: { ingredients },
     } = req;
 
     let user = await MUser.findById(userId).lean();
 
     const uniqueIngredients = [
-      ...new Set([...(user?.ingredients || []), ...ingredient]),
+      ...new Set([...(user?.ingredients || []), ...ingredients]),
     ];
 
     user = await MUser.findByIdAndUpdate(
       userId,
-      { $set: { ingredient: uniqueIngredients } },
+      { $set: { ingredients: uniqueIngredients } },
       { new: true }
     ).lean();
 

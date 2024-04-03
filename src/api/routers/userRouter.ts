@@ -4,7 +4,9 @@ import loginUser from '../controllers/loginUser';
 import getMyProfile from '../controllers/getMyProfile';
 import authMiddleWare from '../../utils/authMiddleware';
 import addUserEquipment from '../controllers/user/addUserEquipment';
-import addUserIngredient from '../controllers/user/addUserIngredient';
+import removeUserEquipment from '../controllers/user/removeUserEquipment';
+import addUserIngredients from '../controllers/user/addUserIngredients';
+import removeUserIngredient from '../controllers/user/removeUserIngredient';
 
 const userRouter = express.Router();
 
@@ -133,6 +135,10 @@ userRouter.get('/myProfile', authMiddleWare, getMyProfile);
 
 userRouter.post('/addEquipment', authMiddleWare, addUserEquipment);
 
-userRouter.post('/addIngredient', authMiddleWare, addUserIngredient);
+userRouter.post('/addIngredients', authMiddleWare, addUserIngredients);
+
+userRouter.post('/removeEquipment', authMiddleWare, removeUserEquipment);
+
+userRouter.post('/removeIngredient', authMiddleWare, removeUserIngredient);
 
 export default userRouter;
