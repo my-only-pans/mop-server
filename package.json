@@ -4,7 +4,7 @@
   "description": "API Server for My Only Pans",
   "main": "index.js",
   "scripts": {
-    "build": "tsc",
+    "build": " npm install && tsc",
     "start": "node dist/index.js",
     "start:dev": "nodemon",
     "lint": "eslint . --ext .ts"
