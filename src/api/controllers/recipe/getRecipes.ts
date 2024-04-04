@@ -125,8 +125,6 @@ export default async function getRecipes(req: Request, res: Response) {
     }
     // === END OF PREP TIME ===
 
-    console.log(filter);
-
     const total = await MRecipe.countDocuments(filter);
 
     const recipes = await MRecipe.find(filter)
