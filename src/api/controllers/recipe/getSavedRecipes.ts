@@ -8,7 +8,7 @@ export default async function getSavedRecipes(
   res: Response
 ) {
   try {
-    const { userId } = req.body;
+    const { userId } = req;
 
     const user = await MUser.findById(userId, { savedRecipes: 1 }).lean();
 
