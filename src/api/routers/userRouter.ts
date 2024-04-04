@@ -2,7 +2,7 @@ import express from 'express';
 import registerUser from '../controllers/registerUser';
 import loginUser from '../controllers/loginUser';
 import getMyProfile from '../controllers/getMyProfile';
-import authMiddleWare from '../../utils/authMiddleware';
+import authMiddleWare from '../../middleware/authMiddleware';
 import addUserEquipment from '../controllers/user/addUserEquipment';
 import removeUserEquipment from '../controllers/user/removeUserEquipment';
 import addUserIngredients from '../controllers/user/addUserIngredients';

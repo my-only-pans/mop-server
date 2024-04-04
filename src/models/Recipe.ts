@@ -64,6 +64,9 @@ export class RecipeDraft extends BaseWithTimeStamps {
   @prop({ required: true })
   description!: string;
 
+  @prop()
+  imageUrl!: string;
+
   @prop({ required: true })
   prepTime!: number;
 
@@ -98,6 +101,9 @@ export class Recipe extends BaseWithTimeStamps {
 
   @prop({ required: true })
   title!: string;
+
+  @prop()
+  imageUrl!: string;
 
   @prop({ required: true })
   description!: string;

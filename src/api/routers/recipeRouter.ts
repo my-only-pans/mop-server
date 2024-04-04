@@ -1,6 +1,6 @@
 import express from 'express';
 import createRecipeDraft from '../controllers/recipe/createRecipeDraft';
-import authMiddleWare from '../../utils/authMiddleware';
+import authMiddleWare from '../../middleware/authMiddleware';
 import getRecipeDraft from '../controllers/recipe/getRecipeDraft';
 import saveRecipeDraft from '../controllers/recipe/saveRecipeDraft';
 import publishRecipe from '../controllers/recipe/publishRecipe';
