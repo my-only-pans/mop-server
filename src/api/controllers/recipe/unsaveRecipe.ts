@@ -9,12 +9,14 @@ export default async function unsaveRecipe(
   try {
     const {
       userId,
-      body: { recipeId },
+      query: { recipeId },
     } = req;
 
-    const user = await MUser.findByIdAndUpdate(userId, {
-      savedRecipes: { $pull: recipeId },
-    }).lean();
+    const user = await MUser.findByIdAndUpdate(
+      userId,
+      { $pull: { savedRecipes: recipeId } },
+      { new: true }
+    ).lean();
 
     res.json(user?.savedRecipes);
   } catch (error) {

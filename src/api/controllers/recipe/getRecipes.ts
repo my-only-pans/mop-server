@@ -54,7 +54,7 @@ export default async function getRecipes(req: Request, res: Response) {
       if (!mongoose.Types.ObjectId.isValid(owner)) {
         return res.status(400).json({ error: 'Bad Request' });
       } else {
-        filter.owner = owner;
+        filter.$and?.push({ owner });
       }
     }
 

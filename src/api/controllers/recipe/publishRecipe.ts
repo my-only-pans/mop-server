@@ -43,6 +43,7 @@ export default async function publishRecipe(
       equipment,
       ingredients,
       instructions,
+      imageUrl,
     } = input;
 
     const ingredientTags = input.ingredients?.map((i) => i._id);
@@ -61,6 +62,7 @@ export default async function publishRecipe(
           ingredients,
           instructions,
           ingredientTags,
+          imageUrl,
           updatedAt: new Date(),
         }
       ).lean();
