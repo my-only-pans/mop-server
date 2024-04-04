@@ -49,8 +49,8 @@ export class RecipeRating {
   @prop({ required: true, type: () => Number })
   rating!: number;
 
-  @prop({ required: true, type: () => User })
-  user!: User;
+  @prop({ required: true, ref: () => User })
+  user!: Ref<User>;
 }
 
 @ModelOptions({ schemaOptions: { collection: 'RecipeDraft' } })
@@ -129,7 +129,7 @@ export class Recipe extends BaseWithTimeStamps {
   @prop({ required: true, type: () => [RecipeTextBlock] })
   instructions!: RecipeTextBlock[];
 
-  @prop({ type: () => [RecipeRating] })
+  @prop({ type: () => [RecipeRating], default: [] })
   ratings?: RecipeRating[];
 
   @prop({ type: Number, default: 0, max: 5 })

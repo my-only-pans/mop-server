@@ -31,13 +31,13 @@ export default async function rateRecipe(
       return res.status(400).json({ error: 'Recipe does not exist' });
 
     const existingRatingIndex = recipe?.ratings?.findIndex(
-      (r: any) => r.user === userId
+      (r: any) => r.user.toString() === userId
     );
 
     let updatedRecipe: Recipe;
     const ratings = [...(recipe?.ratings || [])];
 
-    if (existingRatingIndex) {
+    if (existingRatingIndex >= 0) {
       ratings[existingRatingIndex].rating = rating;
     } else {
       ratings.push(newUserRating);
@@ -48,13 +48,13 @@ export default async function rateRecipe(
 
     updatedRecipe = (await MRecipe.findByIdAndUpdate(
       recipeId,
-      { ratings, averageRating },
+      { $set: { ratings, averageRating, totalRates: ratings.length } },
       { new: true }
     )
       .populate('owner')
       .lean()) as Recipe;
 
-    res.json(updatedRecipe);
+    res.json(updatedRecipe.averageRating);
   } catch (error) {
     console.log(error);
     res.status(400).json({ error: 'Bad Request' });
