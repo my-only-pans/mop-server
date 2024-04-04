@@ -1,5 +1,11 @@
-import { ModelOptions, getModelForClass, prop } from '@typegoose/typegoose';
+import {
+  ModelOptions,
+  Ref,
+  getModelForClass,
+  prop,
+} from '@typegoose/typegoose';
 import { BaseWithTimeStamps } from './Base';
+import { Recipe } from './Recipe';
 
 @ModelOptions({ schemaOptions: { collection: 'User' } })
 export class User extends BaseWithTimeStamps {
@@ -30,8 +36,8 @@ export class User extends BaseWithTimeStamps {
   @prop({ type: () => [String], default: () => [] })
   ingredients?: string[];
 
-  @prop({ type: () => [String], default: () => [] })
-  savedRecipes?: string[];
+  @prop({ default: () => [] })
+  savedRecipes?: Ref<Recipe>[];
 }
 
 export const MUser = getModelForClass(User);

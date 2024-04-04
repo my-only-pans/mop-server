@@ -24,6 +24,7 @@ export default async function getMyProfile(
       ingredients,
       equipment,
       phone,
+      savedRecipes,
     } = user;
 
     res.send({
@@ -35,6 +36,7 @@ export default async function getMyProfile(
       phone,
       ingredients,
       equipment,
+      savedRecipes,
     });
   } catch (error) {
     res.status(401).json({ error: 'Bad Request' });
